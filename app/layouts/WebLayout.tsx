@@ -7,9 +7,9 @@ export const WebLayout = (props: PropsWithChildren) => {
         <SidebarProvider>
             <WebSidebar />
             <main className="min-h-dvh flex flex-col w-full">
-                <header><SidebarTrigger /></header>
-                <section className="flex-1">{props.children}</section>
-                <footer className="text-sm text-center p-1 text-muted"><span>&copy;{new Date().getFullYear()} - My React Components</span></footer>
+                <header className="p-2"><SidebarTrigger /></header>
+                <section className="flex-1 p-2">{props.children}</section>
+                <footer className="text-sm text-center py-1 px-2 text-muted"><span>&copy;{new Date().getFullYear()} - My React Components</span></footer>
             </main>
         </SidebarProvider>
     )

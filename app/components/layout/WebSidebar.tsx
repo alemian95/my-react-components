@@ -3,7 +3,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, Si
 
 export const WebSidebar = () => {
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" className="shadow-lg">
             <SidebarHeader className="flex flex-row gap-4 items-center">
                 <SidebarMenu>
                     <SidebarMenuItem>
