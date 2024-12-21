@@ -1,6 +1,8 @@
 import { WebLayout } from "~/layouts/WebLayout";
 import type { Route } from "../+types/home";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
+import { Calendar, useCalendar } from "~/components/components/calendar/calendar";
+import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -21,7 +23,7 @@ export default function CalendarPage() {
           <CardDescription>Interactive calendar with advanced functionalities for events</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>Card Content</p>
+          <Calendar />
         </CardContent>
       </Card>
     </WebLayout>
