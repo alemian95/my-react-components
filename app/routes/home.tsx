@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "My React components" },
+    { title: import.meta.env.VITE_APP_NAME },
     { name: "description", content: "My React components" },
   ];
 }
