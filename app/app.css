@@ -18,7 +18,7 @@
     --primary-foreground: theme(colors.white);
     --secondary: theme(colors.lime.300);
     --secondary-foreground: theme(colors.slate.900);
-    --muted: theme(colors.slate.400);
+    --muted: theme(colors.slate.500);
     --muted-foreground: theme(colors.black);
     --accent: theme(colors.pink.600);
     --accent-foreground: theme(colors.white);
@@ -57,7 +57,7 @@
     --primary-foreground: theme(colors.white);
     --secondary: theme(colors.lime.300);
     --secondary-foreground: theme(colors.slate.900);
-    --muted: theme(colors.slate.800);
+    --muted: theme(colors.slate.300);
     --muted-foreground: theme(colors.slate.100);
     --accent: theme(colors.pink.600);
     --accent-foreground: theme(colors.white);
@@ -80,8 +80,8 @@
     --sidebar-primary-foreground: theme(colors.white);
     --sidebar-accent: theme(colors.pink.600);
     --sidebar-accent-foreground: theme(colors.slate.900);
-    --sidebar-border: theme(colors.slate.400);
-    --sidebar-ring: theme(colors.slate.400)}
+    --sidebar-border: theme(colors.slate.800);
+    --sidebar-ring: theme(colors.slate.800)}
 }
 @layer base {
   /* * {
