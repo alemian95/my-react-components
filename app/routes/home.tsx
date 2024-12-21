@@ -1,3 +1,4 @@
+import { WebLayout } from "~/layouts/WebLayout";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -8,5 +9,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <>my react components</>;
+  return <WebLayout>my react components</WebLayout>;
 }
