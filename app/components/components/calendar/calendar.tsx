@@ -49,6 +49,10 @@ const useDate = (initialDate: Date|null): UseDateProps => {
     const [ firstDayOfCurrentMonth, setFirstDayOfCurrentMonth ] = useState<number|null>(null)
     const [ daysInCurrentMonth, setDaysInCurrentMonth ] = useState<number|null>(null)
 
+    const isDayEqual = (otherDate: UseDateProps) => {
+        return dayOfMonth === otherDate.dayOfMonth && month === otherDate.month && year === otherDate.year
+    }
+
     useEffect(() => {
         setDay(date?.getDay() ?? null)
         setDayLabel(date ? days[date.getDay()] : null)
@@ -63,7 +67,7 @@ const useDate = (initialDate: Date|null): UseDateProps => {
         setDaysInCurrentMonth(date ? new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() : null)
     }, [ date ])
 
-    return { dayLabel, day, dayOfMonth, month, year, hours, minutes, seconds, firstDayOfCurrentMonth, daysInCurrentMonth, firstDayLabelOfCurrentMonth, date, setDate }
+    return { dayLabel, day, dayOfMonth, month, year, hours, minutes, seconds, firstDayOfCurrentMonth, daysInCurrentMonth, firstDayLabelOfCurrentMonth, date, setDate, isDayEqual }
 }
 
 type UseDateProps = {
@@ -80,6 +84,7 @@ type UseDateProps = {
     firstDayLabelOfCurrentMonth: string|null,
     date: Date|null,
     setDate: Dispatch<React.SetStateAction<Date | null>>
+    isDayEqual: (otherDate: UseDateProps) => boolean
 }
 
 const Calendar = ({ events }: { events: CalendarEvent[] }) => {
@@ -97,16 +102,15 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     {
                         days.map(d => {
                             return (
-                                <div key={d} className="p-2 capitalize">{d}</div>
+                                <div key={d} className="p-2 capitalize font-semibold">{d}</div>
                             )
                         })
                     }
                 </div>
             </div>
-            <div className="grid grid-cols-1 xl:grid-cols-7 w-full border">
+            <div className="grid grid-cols-1 xl:grid-cols-7 w-full">
                 {
                     Array.from({ length: state.current.firstDayOfCurrentMonth! }, (_, index) => index).map((i) => {
-                        console.log('diocane')
                         return (
                             <div key={i} className="hidden xl:block h-24"></div>
                         )
@@ -122,6 +126,7 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                                     key={i}
                                     date={new Date(state.current.year, state.current.month, i+1)}
                                     events={[]}
+
                                 />
                             )
                         } else {
@@ -130,7 +135,6 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     })
                 }
             </div>
-            <div className="font-mono whitespace-break-spaces text-sm">{JSON.stringify(state, null, 2)}</div>
         </>
     )
 }
@@ -138,10 +142,11 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
 const CalendarDay = ({ date, events }: { date: Date, events?: CalendarEvent[] }) => {
 
     const state = useDate(date)
+    const today = useDate(new Date)
 
     return (
-        <div className={`h-24 border p-2 flex flex-col gap-1`}>
-            <div className="text-right"><span className={`${ state.day === 0 ? "text-destructive font-bold" : "font-semibold"}`}>{state.dayOfMonth}</span></div>
+        <div className={`h-24 p-2 flex flex-col gap-1 ${state.isDayEqual(today) ? "bg-sky-200" : (state.day === 0 ? "bg-rose-200" : "bg-slate-50")} hover:bg-lime-200`}>
+            <div className="text-right"><span className={`cursor-pointer ${ state.day === 0 ? "text-destructive font-bold" : "font-semibold"}`}>{state.dayOfMonth}</span></div>
         </div>
     )
 }
