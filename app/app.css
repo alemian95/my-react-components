@@ -15,13 +15,13 @@
     --popover-foreground: theme(colors.slate.900);
 
     --primary: theme(colors.sky.600);
-    --primary-foreground: theme(colors.white);
+    --primary-foreground: theme(colors.slate.50);
     --secondary: theme(colors.lime.300);
     --secondary-foreground: theme(colors.slate.900);
     --muted: theme(colors.slate.500);
     --muted-foreground: theme(colors.black);
     --accent: theme(colors.pink.600);
-    --accent-foreground: theme(colors.white);
+    --accent-foreground: theme(colors.slate.50);
     --destructive: theme(colors.red.600);
     --destructive-foreground: theme(colors.white);
 
@@ -40,7 +40,7 @@
     --sidebar-primary: theme(colors.sky.600);
     --sidebar-primary-foreground: theme(colors.white);
     --sidebar-accent: theme(colors.pink.600);
-    --sidebar-accent-foreground: theme(colors.slate.900);
+    --sidebar-accent-foreground: theme(colors.slate.50);
     --sidebar-border: theme(colors.slate.400);
     --sidebar-ring: theme(colors.slate.400)
   }
@@ -54,7 +54,7 @@
     --popover-foreground: theme(colors.slate.50);
 
     --primary: theme(colors.sky.600);
-    --primary-foreground: theme(colors.white);
+    --primary-foreground: theme(colors.slate.50);
     --secondary: theme(colors.lime.300);
     --secondary-foreground: theme(colors.slate.900);
     --muted: theme(colors.slate.300);
@@ -62,7 +62,7 @@
     --accent: theme(colors.pink.600);
     --accent-foreground: theme(colors.white);
     --destructive: theme(colors.red.600);
-    --destructive-foreground: theme(colors.white);
+    --destructive-foreground: theme(colors.slate.50);
 
     --border: theme(colors.slate.800);
     --input: theme(colors.slate.800);
@@ -79,7 +79,7 @@
     --sidebar-primary: theme(colors.sky.600);
     --sidebar-primary-foreground: theme(colors.white);
     --sidebar-accent: theme(colors.pink.600);
-    --sidebar-accent-foreground: theme(colors.slate.900);
+    --sidebar-accent-foreground: theme(colors.slate.50);
     --sidebar-border: theme(colors.slate.800);
     --sidebar-ring: theme(colors.slate.800)}
 }
