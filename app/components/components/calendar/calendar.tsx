@@ -9,6 +9,7 @@ type CalendarEvent = {
 }
 
 const days = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ]
+const months = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ]
 
 const useCalendar = () => {
 
@@ -81,30 +82,33 @@ type UseDateProps = {
     setDate: Dispatch<React.SetStateAction<Date | null>>
 }
 
-const Calendar = () => {
-    // const { today, current, events, addEvent } = useCalendar()
+const Calendar = ({ events }: { events: CalendarEvent[] }) => {
     const state = useCalendar()
 
     useEffect(() => {
-        state.addEvent({
-            title: "Christmas lunch with relatives 🎅🎄",
-            from: new Date(Date.parse("2024-12-25 12:00")),
-            to: new Date(Date.parse("2024-12-25 14:00")),
-        })
-    }, [])
+        events.forEach(state.addEvent)
+    }, [events])
 
     return (
         <>
-            <div className="grid grid-cols-7">
-                {
-                    days.map(d => <div className="p-2 capitalize">{d}</div>)
-                }
+            <div className="font-xl font-bold capitalize">{state.current.month && months[state.current.month]} {state.current.year && state.current.year}</div>
+            <div className="hidden xl:block">
+                <div className="grid grid-cols-7">
+                    {
+                        days.map(d => {
+                            return (
+                                <div key={d} className="p-2 capitalize">{d}</div>
+                            )
+                        })
+                    }
+                </div>
             </div>
-            <div className="grid grid-cols-7 w-full border">
+            <div className="grid grid-cols-1 xl:grid-cols-7 w-full border">
                 {
                     Array.from({ length: state.current.firstDayOfCurrentMonth! }, (_, index) => index).map((i) => {
+                        console.log('diocane')
                         return (
-                            <div className="h-16"></div>
+                            <div key={i} className="hidden xl:block h-24"></div>
                         )
                     })
                 }
@@ -114,7 +118,11 @@ const Calendar = () => {
                     Array.from({ length: state.current.daysInCurrentMonth }, (_, index) => index).map((i) => {
                         if (state.current.year && state.current.month) {
                             return (
-                                <CalendarDay date={new Date(state.current.year, state.current.month, i+1)} />
+                                <CalendarDay 
+                                    key={i}
+                                    date={new Date(state.current.year, state.current.month, i+1)}
+                                    events={[]}
+                                />
                             )
                         } else {
                             return null
@@ -127,12 +135,14 @@ const Calendar = () => {
     )
 }
 
-const CalendarDay = ({ date }: { date: Date }) => {
+const CalendarDay = ({ date, events }: { date: Date, events?: CalendarEvent[] }) => {
 
     const state = useDate(date)
 
     return (
-        <div className="h-16 border">{state.dayOfMonth}</div>
+        <div className={`h-24 border p-2 flex flex-col gap-1`}>
+            <div className="text-right"><span className={`${ state.day === 0 ? "text-destructive font-bold" : "font-semibold"}`}>{state.dayOfMonth}</span></div>
+        </div>
     )
 }
 

@@ -1,7 +1,7 @@
 import { WebLayout } from "~/layouts/WebLayout";
 import type { Route } from "../+types/home";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "~/components/ui/card";
-import { Calendar, useCalendar } from "~/components/components/calendar/calendar";
+import { Calendar, useCalendar, type CalendarEvent } from "~/components/components/calendar/calendar";
 import { useEffect } from "react";
 
 export function meta({}: Route.MetaArgs) {
@@ -14,6 +14,14 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+const events: CalendarEvent[] = [
+  {
+    title: "Christmas lunch with relatives 🎅🎄",
+    from: new Date(Date.parse("2024-12-25 12:00")),
+    to: new Date(Date.parse("2024-12-25 14:00")),
+  }
+]
+
 export default function CalendarPage() {
   return (
     <WebLayout>
@@ -23,7 +31,7 @@ export default function CalendarPage() {
           <CardDescription>Interactive calendar with advanced functionalities for events</CardDescription>
         </CardHeader>
         <CardContent>
-          <Calendar />
+          <Calendar events={events} />
         </CardContent>
       </Card>
     </WebLayout>
