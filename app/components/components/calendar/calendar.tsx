@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type Dispatch } from "react"
 
 type CalendarEvent = {
     id?: string|number
@@ -29,7 +29,7 @@ const useCalendar = () => {
 
 }
 
-const useDate = (initialDate: Date|null) => {
+const useDate = (initialDate: Date|null): UseDateProps => {
 
     const [ date, setDate ] = useState<Date|null>(initialDate)
 
@@ -65,6 +65,22 @@ const useDate = (initialDate: Date|null) => {
     return { dayLabel, day, dayOfMonth, month, year, hours, minutes, seconds, firstDayOfCurrentMonth, daysInCurrentMonth, firstDayLabelOfCurrentMonth, date, setDate }
 }
 
+type UseDateProps = {
+    dayLabel: string|null,
+    day: number|null,
+    dayOfMonth: number|null,
+    month: number|null,
+    year: number|null,
+    hours: number|null,
+    minutes: number|null,
+    seconds: number|null,
+    firstDayOfCurrentMonth: number|null,
+    daysInCurrentMonth: number|null,
+    firstDayLabelOfCurrentMonth: string|null,
+    date: Date|null,
+    setDate: Dispatch<React.SetStateAction<Date | null>>
+}
+
 const Calendar = () => {
     // const { today, current, events, addEvent } = useCalendar()
     const state = useCalendar()
@@ -73,14 +89,50 @@ const Calendar = () => {
         state.addEvent({
             title: "Christmas lunch with relatives 🎅🎄",
             from: new Date(Date.parse("2024-12-25 12:00")),
-            to: new Date(Date.parse("2024-12-25 12:00")),
+            to: new Date(Date.parse("2024-12-25 14:00")),
         })
     }, [])
 
     return (
         <>
+            <div className="grid grid-cols-7">
+                {
+                    days.map(d => <div className="p-2 capitalize">{d}</div>)
+                }
+            </div>
+            <div className="grid grid-cols-7 w-full border">
+                {
+                    Array.from({ length: state.current.firstDayOfCurrentMonth! }, (_, index) => index).map((i) => {
+                        return (
+                            <div className="h-16"></div>
+                        )
+                    })
+                }
+                {
+                    state.current.daysInCurrentMonth
+                    &&
+                    Array.from({ length: state.current.daysInCurrentMonth }, (_, index) => index).map((i) => {
+                        if (state.current.year && state.current.month) {
+                            return (
+                                <CalendarDay date={new Date(state.current.year, state.current.month, i+1)} />
+                            )
+                        } else {
+                            return null
+                        }
+                    })
+                }
+            </div>
             <div className="font-mono whitespace-break-spaces text-sm">{JSON.stringify(state, null, 2)}</div>
         </>
+    )
+}
+
+const CalendarDay = ({ date }: { date: Date }) => {
+
+    const state = useDate(date)
+
+    return (
+        <div className="h-16 border">{state.dayOfMonth}</div>
     )
 }
 

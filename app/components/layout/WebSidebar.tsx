@@ -8,7 +8,7 @@ export const WebSidebar = () => {
             <SidebarHeader className="flex flex-row gap-4 items-center">
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton className="hover:text-white" size="lg" asChild>
+                        <SidebarMenuButton className="hover:text-slate-50" size="lg" asChild>
                             <Link to="/">
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                                     <LayoutDashboard className="w-8 h-8" />
@@ -27,7 +27,7 @@ export const WebSidebar = () => {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton asChild isActive={false}>
+                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
                                     <Link to="/components/calendar">
                                         <Calendar1 />
                                         <span>Calendar</span>
