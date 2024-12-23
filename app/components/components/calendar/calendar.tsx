@@ -115,7 +115,7 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
     }, [events]);
 
     return (
-        <>
+        <div>
             <div className="flex justify-between">
                 <div className="font-xl font-bold capitalize">
                     {months[state.current.month]} {state.current.year}
@@ -165,7 +165,7 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     }
                 )}
             </div>
-        </>
+        </div>
     );
 };
 
