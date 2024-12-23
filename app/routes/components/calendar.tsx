@@ -72,7 +72,7 @@ export default function CalendarPage() {
 
     return (
         <WebLayout>
-            <Card>
+            <Card className="border-none shadow-lg">
                 <CardHeader>
                     <CardTitle>Event Calendar</CardTitle>
                     <CardDescription>
