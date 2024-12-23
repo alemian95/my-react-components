@@ -143,11 +143,15 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     state.current.daysInCurrentMonth
                     &&
                     Array.from({ length: state.current.daysInCurrentMonth }, (_, index) => index).map((i) => {
+                        const date = new Date(state.current.year, state.current.month, i+1)
+                        const dayEvents = state.events.filter((e) => {
+                            return e.from.getFullYear() === date.getFullYear() && e.from.getMonth() === date.getMonth() && e.from.getDate() === date.getDate()
+                        })
                         return (
                             <CalendarDay 
                                 key={`day_${state.current.month}_${i}`}
-                                date={new Date(state.current.year, state.current.month, i+1)}
-                                events={[]}
+                                date={date}
+                                events={dayEvents}
                             />
                         )
                     })
@@ -158,7 +162,7 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
     )
 }
 
-const CalendarDay = ({ date }: { date: Date, events?: CalendarEvent[] }) => {
+const CalendarDay = ({ date, events }: { date: Date, events?: CalendarEvent[] }) => {
 
     const state = useDate(date)
     const today = useDate(new Date)
@@ -166,7 +170,18 @@ const CalendarDay = ({ date }: { date: Date, events?: CalendarEvent[] }) => {
     return (
         <div className={`h-24 xl:h-auto xl:aspect-video p-2 flex flex-col gap-1 ${state.isDayEqual(today) ? "bg-sky-200" : (state.day === 0 ? "bg-rose-200" : "bg-slate-50")} hover:bg-emerald-200`}>
             <div className="text-right"><span className={`cursor-pointer ${ state.day === 0 ? "text-destructive font-bold" : "font-semibold"}`}>{state.dayOfMonth}</span></div>
+            <div className="flex flex-col gap-1">
+                {
+                    events?.map((e,i) => i < 2 ? <CalendarEvent key={i} event={e} /> : null)
+                }
+            </div>
         </div>
+    )
+}
+
+const CalendarEvent = ({ event }: { event: CalendarEvent}) => {
+    return (
+        <div className="cursor-pointer w-full p-1 h-[1.2rem] text-xs overflow-hidden rounded bg-orange-500 text-slate-50">{event.title}</div>
     )
 }
 
