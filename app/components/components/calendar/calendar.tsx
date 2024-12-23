@@ -107,6 +107,7 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
     const state = useCalendar()
 
     useEffect(() => {
+        state.clearEvents()
         events.forEach(state.addEvent)
     }, [events])
 
@@ -142,20 +143,17 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     state.current.daysInCurrentMonth
                     &&
                     Array.from({ length: state.current.daysInCurrentMonth }, (_, index) => index).map((i) => {
-                        if (state.current.year && state.current.month) {
-                            return (
-                                <CalendarDay 
-                                    key={`${state.current.month}_${i}`}
-                                    date={new Date(state.current.year, state.current.month, i+1)}
-                                    events={[]}
-                                />
-                            )
-                        } else {
-                            return null
-                        }
+                        return (
+                            <CalendarDay 
+                                key={`day_${state.current.month}_${i}`}
+                                date={new Date(state.current.year, state.current.month, i+1)}
+                                events={[]}
+                            />
+                        )
                     })
                 }
             </div>
+            <div className="font-mono whitespace-break-spaces text-sm text-muted">{JSON.stringify(state, null, 2)}</div>
         </>
     )
 }
@@ -173,4 +171,4 @@ const CalendarDay = ({ date }: { date: Date, events?: CalendarEvent[] }) => {
 }
 
 export { Calendar, useCalendar }
-export type { CalendarEvent }
+export type { CalendarEvent, UseDateProps }
