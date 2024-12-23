@@ -114,7 +114,7 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
     return (
         <>
             <div className="flex justify-between">
-                <div className="font-xl font-bold capitalize">{state.current.month && months[state.current.month]} {state.current.year && state.current.year}</div>
+                <div className="font-xl font-bold capitalize">{months[state.current.month]} {state.current.year}</div>
                 <div className="flex items-center gap-4">
                     <MoveLeft className="cursor-pointer" onClick={state.prevMonth} />
                     <MoveRight className="cursor-pointer" onClick={state.nextMonth} />
