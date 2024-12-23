@@ -66,6 +66,38 @@ const useDate = (initialDate: Date|null): UseDateProps => {
         return dayOfMonth === otherDate.dayOfMonth && month === otherDate.month && year === otherDate.year
     }
 
+    const isDayBefore = (otherDate: UseDateProps) => {
+        if (otherDate.year < year) {
+            return true
+        }
+        
+        if (otherDate.month < month) {
+            return true
+        }
+
+        if (dayOfMonth < otherDate.dayOfMonth) {
+            return true
+        }
+
+        return false
+    }
+
+    const isDayAfter = (otherDate: UseDateProps) => {
+        if (otherDate.year > year){
+            return true
+        }
+
+        if (otherDate.month > month) {
+            return true
+        }
+
+        if (dayOfMonth > otherDate.dayOfMonth) {
+            return true
+        }
+
+        return false
+    }
+
     useEffect(() => {
         if (! date) {
             return
@@ -83,7 +115,13 @@ const useDate = (initialDate: Date|null): UseDateProps => {
         setDaysInCurrentMonth(new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate())
     }, [ date ])
 
-    return { dayLabel, day, dayOfMonth, month, year, hours, minutes, seconds, firstDayOfCurrentMonth, daysInCurrentMonth, firstDayLabelOfCurrentMonth, date, setDate, isDayEqual }
+    return { 
+        dayLabel, day, dayOfMonth, month, year, 
+        hours, minutes, seconds, 
+        firstDayOfCurrentMonth, daysInCurrentMonth, firstDayLabelOfCurrentMonth, 
+        date, setDate, 
+        isDayEqual, isDayBefore, isDayAfter
+    }
 }
 
 type UseDateProps = {
@@ -101,6 +139,8 @@ type UseDateProps = {
     date: Date|null,
     setDate: Dispatch<React.SetStateAction<Date | null>>
     isDayEqual: (otherDate: UseDateProps) => boolean
+    isDayBefore: (otherDate: UseDateProps) => boolean
+    isDayAfter: (otherDate: UseDateProps) => boolean
 }
 
 const Calendar = ({ events }: { events: CalendarEvent[] }) => {
