@@ -1,5 +1,5 @@
 import { MoveLeft, MoveRight } from "lucide-react"
-import { useEffect, useState, type Dispatch } from "react"
+import React, { useEffect, useState, type Dispatch } from "react"
 
 type CalendarEvent = {
     id?: string|number
@@ -39,7 +39,7 @@ const useCalendar = () => {
         current.setDate(today.date)
     }, [])
 
-    return { today, current, events, addEvent, clearEvents, nextMonth, prevMonth }
+    return { today, current, events, setEvents, addEvent, clearEvents, nextMonth, prevMonth }
 
 }
 
@@ -147,9 +147,8 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
     const state = useCalendar()
 
     useEffect(() => {
-        state.clearEvents()
-        events.forEach(state.addEvent)
-    }, [events])
+        state.setEvents(events)
+    }, [])
 
     return (
         <>
@@ -185,7 +184,9 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     Array.from({ length: state.current.daysInCurrentMonth }, (_, index) => index).map((i) => {
                         const date = new Date(state.current.year, state.current.month, i+1)
                         const dayEvents = state.events.filter((e) => {
-                            return e.from.getFullYear() === date.getFullYear() && e.from.getMonth() === date.getMonth() && e.from.getDate() === date.getDate()
+                            return isDayEqual(date, e.from)
+                                || isDayEqual(date, e.to)
+                                || (isDayBefore(date, e.to) && isDayAfter(date, e.from))
                         })
                         return (
                             <CalendarDay 
@@ -208,8 +209,8 @@ const CalendarDay = ({ date, events }: { date: Date, events?: CalendarEvent[] })
     const today = useDate(new Date)
 
     return (
-        <div className={`h-24 xl:h-auto xl:aspect-video p-2 flex flex-col gap-1 ${state.isDayEqual(today) ? "bg-sky-200" : (state.day === 0 ? "bg-rose-200" : "bg-slate-50")} hover:bg-emerald-200`}>
-            <div className="text-right"><span className={`cursor-pointer ${ state.day === 0 ? "text-destructive font-bold" : "font-semibold"}`}>{state.dayOfMonth}</span></div>
+        <div className={`h-24 xl:h-auto xl:aspect-video flex flex-col gap-1 ${state.isDayEqual(today) ? "bg-sky-200" : (state.day === 0 ? "bg-rose-200" : "bg-slate-50")} hover:bg-emerald-200`}>
+            <div className="text-right p-2"><span className={`cursor-pointer ${ state.day === 0 ? "text-destructive font-bold" : "font-semibold"}`}>{state.dayOfMonth}</span></div>
             <div className="flex flex-col gap-1">
                 {
                     events?.map((e,i) => i < 2 ? <CalendarEvent key={i} event={e} /> : null)
@@ -219,11 +220,51 @@ const CalendarDay = ({ date, events }: { date: Date, events?: CalendarEvent[] })
     )
 }
 
-const CalendarEvent = ({ event }: { event: CalendarEvent}) => {
-    return (
-        <div className="cursor-pointer w-full p-1 h-[1.2rem] text-xs overflow-hidden rounded bg-orange-500 text-slate-50">{event.title}</div>
-    )
+export interface CalendarEventProps extends React.HTMLAttributes<HTMLDivElement> { event: CalendarEvent }
+
+const CalendarEvent = React.forwardRef<HTMLDivElement, CalendarEventProps>(({ event, className, ...props }, ref) => (
+        <div className="cursor-pointer w-full p-1 h-[1.2rem] text-xs overflow-hidden bg-orange-500 text-slate-50">{event.title}</div>
+))
+CalendarEvent.displayName = "CalendarEvent"
+
+
+
+const isDayEqual = (date: Date, cmpDate: Date) => {
+    return date.getDate() === cmpDate.getDate() && date.getMonth() === cmpDate.getMonth() && date.getFullYear() === cmpDate.getFullYear()
 }
+
+const isDayBefore = (date: Date, cmpDate: Date) => {
+    if (date.getFullYear() < cmpDate.getFullYear()){
+        return true
+    }
+
+    if (date.getMonth() < cmpDate.getMonth()) {
+        return true
+    }
+
+    if (date.getDate() < cmpDate.getDate()) {
+        return true
+    }
+
+    return false
+}
+
+const isDayAfter = (date: Date, cmpDate: Date) => {
+    if (date.getFullYear() > cmpDate.getFullYear()){
+        return true
+    }
+
+    if (date.getMonth() > cmpDate.getMonth()) {
+        return true
+    }
+
+    if (date.getDate() > cmpDate.getDate()) {
+        return true
+    }
+
+    return false
+}
+
 
 export { Calendar, useCalendar }
 export type { CalendarEvent, UseDateProps }

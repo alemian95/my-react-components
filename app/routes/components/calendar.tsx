@@ -19,6 +19,11 @@ const events: CalendarEvent[] = [
     title: "Christmas lunch with relatives 🎅🎄",
     from: new Date(Date.parse("2024-12-25 12:00")),
     to: new Date(Date.parse("2024-12-25 14:00")),
+  },
+  {
+    title: "Day off work",
+    from: new Date(Date.parse("2024-12-23")),
+    to: new Date(Date.parse("2025-01-06")),
   }
 ]
 
