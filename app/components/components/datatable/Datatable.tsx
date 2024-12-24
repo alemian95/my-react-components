@@ -103,9 +103,9 @@ export function DataTable<T>(props: DataTableProps<T>) {
                     </DropdownMenu>
                 }
             </div>
-            <div className="border">
+            <div className="border rounded">
                 <Table>
-                    <TableHeader className="bg-white">
+                    <TableHeader className="bg-background">
                         {table.getHeaderGroups().map((headerGroup: any) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header: any) => {
