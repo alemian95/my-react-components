@@ -5,4 +5,5 @@ export default [
     route("/components/calendar", "./routes/components/calendar.tsx"),
     route("/hooks/useboolean", "./routes/hooks/useboolean.tsx"),
     route("/hooks/useinterval", "./routes/hooks/useinterval.tsx"),
+    route("/hooks/usetimeout", "./routes/hooks/usetimeout.tsx"),
 ] satisfies RouteConfig;
