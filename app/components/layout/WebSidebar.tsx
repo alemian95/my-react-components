@@ -49,6 +49,14 @@ export const WebSidebar = () => {
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                    <Link to="/hooks/useinterval">
+                                        <Power />
+                                        <span>useInterval</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
