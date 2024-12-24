@@ -1,4 +1,4 @@
-import { MoveLeft, MoveRight } from "lucide-react";
+import { RefreshCcw, SkipBack, SkipForward } from "lucide-react";
 import React, { useEffect, useState, type Dispatch } from "react";
 
 type CalendarEvent = {
@@ -44,12 +44,16 @@ const useCalendar = () => {
 
     const clearEvents = () => setEvents([]);
 
+    const backToToday = () => {
+        current.setDate(new Date(today.year, today.month, 1))
+    }
+
     const nextMonth = () => {
-        current.setDate(new Date(current.year, current.month + 1, 1));
+        current.setDate(new Date(current.year, current.month + 1, 1))
     };
 
     const prevMonth = () => {
-        current.setDate(new Date(current.year, current.month - 1, 1));
+        current.setDate(new Date(current.year, current.month - 1, 1))
     };
 
     return {
@@ -61,6 +65,7 @@ const useCalendar = () => {
         clearEvents,
         nextMonth,
         prevMonth,
+        backToToday
     };
 };
 
@@ -121,11 +126,15 @@ const Calendar = ({ events }: { events: CalendarEvent[] }) => {
                     {months[state.current.month]} {state.current.year}
                 </div>
                 <div className="flex items-center gap-4">
-                    <MoveLeft
+                    <RefreshCcw
+                        className="cursor-pointer"
+                        onClick={state.backToToday}
+                    />
+                    <SkipBack
                         className="cursor-pointer"
                         onClick={state.prevMonth}
                     />
-                    <MoveRight
+                    <SkipForward
                         className="cursor-pointer"
                         onClick={state.nextMonth}
                     />
