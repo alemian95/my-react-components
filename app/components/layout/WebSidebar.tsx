@@ -1,4 +1,4 @@
-import { Calendar1, LayoutDashboard, Power } from "lucide-react"
+import { Calendar1, Clock, LayoutDashboard, Power } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Link } from "react-router"
 
@@ -52,7 +52,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
                                     <Link to="/hooks/useinterval">
-                                        <Power />
+                                        <Clock />
                                         <span>useInterval</span>
                                     </Link>
                                 </SidebarMenuButton>
