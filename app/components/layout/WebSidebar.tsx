@@ -1,4 +1,4 @@
-import { Calendar1, Clock, LayoutDashboard, Power, Timer } from "lucide-react"
+import { Calendar1, Clock, LayoutDashboard, Power, Table, Timer } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Link } from "react-router"
 
@@ -31,6 +31,14 @@ export const WebSidebar = () => {
                                     <Link to="/components/calendar">
                                         <Calendar1 />
                                         <span>Calendar</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                    <Link to="/components/datatable">
+                                        <Table />
+                                        <span>Datatable</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
