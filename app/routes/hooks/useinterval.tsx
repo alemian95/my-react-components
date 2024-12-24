@@ -37,7 +37,7 @@ export default function UseIntervalHook() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div>{date.toUTCString()}</div>
+                    <div>{date.toISOString()}</div>
                     <Slider value={[delay || 0]} min={0} max={5000} step={1} onValueChange={(e) => setDelay(e[0].valueOf() > 0 ? e[0].valueOf() : null)} />
                     <div>Delay: {delay || 0 > 0 ? `${delay} ms` : "stopped"}</div>
                 </CardContent>
