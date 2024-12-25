@@ -20,11 +20,25 @@ export function meta({}: Route.MetaArgs) {
 export default function DatatablePage() {
 
     const [ rows, setRows ] = useState([])
+    const [ loading, setLoading ] = useState(true)
+    const [ error, setError ] = useState<string|null>(null)
 
     useEffect(() => {
         fetch("https://jsonplaceholder.typicode.com/photos")
-        .then(response => response.json())
-        .then(json => setRows(json))
+        .then(response => {
+            if (! response.ok) {
+                return response.text().then(text => { throw new Error(text) })
+            }
+            return response.json()
+        })
+        .then(json => {
+            setError(null)
+            setRows(json)
+        })
+        .catch((err: TypeError) => {
+            setError(err.message)
+        })
+        .finally(() => setLoading(false))
     }, [])
 
     const columns: ColumnDef<any>[] = [
@@ -104,8 +118,8 @@ export default function DatatablePage() {
                         enableColumnsSelection={true}
                         enableRowsSelection={true}
                         enableTextFilter="title"
-                        isLoading={false}
-                        error={null}
+                        isLoading={loading}
+                        error={error}
                         pageSize={10}
                         enablePagination={true}
                     />

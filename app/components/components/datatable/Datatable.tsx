@@ -8,6 +8,8 @@ import { Pagination, PaginationContent, PaginationItem } from "~/components/ui/p
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { PaginationTable } from "./pagination/PaginationTable"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
+import { Spinner } from "../ui/spinner"
+import { ErrorBanner } from "../ui/error"
 
 export type DataTableProps<T> = {
     data: T[]
@@ -132,7 +134,6 @@ export function DataTable<T>(props: DataTableProps<T>) {
                                         <TableRow
                                             key={row.id}
                                             data-state={row.getIsSelected() && "selected"}
-                                            className="bg-white text-neutral-900"
                                         >
                                             {row.getVisibleCells().map((cell: any) => (
                                                 <TableCell key={cell.id}>
@@ -149,18 +150,18 @@ export function DataTable<T>(props: DataTableProps<T>) {
                                 (
                                     props.isLoading
                                         ?
-                                        <tr><td className="flex justify-center py-2">Loading...</td></tr>
+                                        <tr><td className="flex justify-center py-2"><Spinner /></td></tr>
                                         :
                                         props.error
                                             ?
-                                            <tr><td>{props.error}</td></tr>
+                                            <ErrorBanner message={props.error} />
                                             :
                                             <TableRow>
                                                 <TableCell
                                                     colSpan={columns.length}
                                                     className="h-24 text-center"
                                                 >
-                                                    Nessun risultato
+                                                    No results
                                                 </TableCell>
                                             </TableRow>
                                 )
@@ -173,8 +174,8 @@ export function DataTable<T>(props: DataTableProps<T>) {
                     props.enableRowsSelection
                     &&
                     <div className="flex-1 text-sm text-muted-foreground">
-                        {table.getFilteredSelectedRowModel().rows.length} di{" "}
-                        {table.getFilteredRowModel().rows.length} elemento(i) selezionato(i).
+                        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                        {table.getFilteredRowModel().rows.length} items selected.
                     </div>
                 }
                 {

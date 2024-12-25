@@ -8,7 +8,7 @@ export const WebSidebar = () => {
             <SidebarHeader className="flex flex-row gap-4 items-center">
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton className="hover:text-slate-50" size="lg" asChild>
+                        <SidebarMenuButton size="lg" asChild>
                             <Link to="/">
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                                     <LayoutDashboard className="w-8 h-8" />
@@ -27,7 +27,7 @@ export const WebSidebar = () => {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/components/calendar">
                                         <Calendar1 />
                                         <span>Calendar</span>
@@ -35,7 +35,7 @@ export const WebSidebar = () => {
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
-                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/components/datatable">
                                         <Table />
                                         <span>Datatable</span>
@@ -50,7 +50,7 @@ export const WebSidebar = () => {
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/useboolean">
                                         <Power />
                                         <span>useBoolean</span>
@@ -58,7 +58,7 @@ export const WebSidebar = () => {
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
-                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/useinterval">
                                         <Clock />
                                         <span>useInterval</span>
@@ -66,7 +66,7 @@ export const WebSidebar = () => {
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
-                                <SidebarMenuButton className="hover:text-slate-50" asChild isActive={false}>
+                                <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/usetimeout">
                                         <Timer />
                                         <span>useTimeout</span>
