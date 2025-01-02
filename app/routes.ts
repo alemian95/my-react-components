@@ -7,4 +7,5 @@ export default [
     route("/hooks/useboolean", "./routes/hooks/useboolean.tsx"),
     route("/hooks/useinterval", "./routes/hooks/useinterval.tsx"),
     route("/hooks/usetimeout", "./routes/hooks/usetimeout.tsx"),
+    route("/hooks/usecounter", "./routes/hooks/usecounter.tsx"),
 ] satisfies RouteConfig;

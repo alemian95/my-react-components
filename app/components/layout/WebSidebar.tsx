@@ -1,4 +1,4 @@
-import { Calendar1, Clock, LayoutDashboard, Power, Table, Timer } from "lucide-react"
+import { Calculator, Calendar1, Clock, LayoutDashboard, Power, Table, Timer } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Link } from "react-router"
 
@@ -70,6 +70,14 @@ export const WebSidebar = () => {
                                     <Link to="/hooks/usetimeout">
                                         <Timer />
                                         <span>useTimeout</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                            <SidebarMenuItem>
+                                <SidebarMenuButton asChild isActive={false}>
+                                    <Link to="/hooks/usecounter">
+                                        <Calculator />
+                                        <span>useCounter</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
