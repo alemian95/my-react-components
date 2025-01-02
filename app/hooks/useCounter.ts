@@ -20,11 +20,9 @@ export const useCounter = (props?: {
 
     useEffect(() => {
         if (value >= propsState.maxValue) {
-            setValue(propsState.maxValue)
             if (propsState.onMaxValue) propsState.onMaxValue()
         }
         if (value <= propsState.minValue) {
-            setValue(propsState.minValue)
             if (propsState.onMinValue) propsState.onMinValue()
         }
     }, [ value ])
@@ -33,20 +31,32 @@ export const useCounter = (props?: {
         setValue(propsState.initialValue)
     }
 
+    const set = (newValue: number) => {
+        if (newValue >= propsState.maxValue) {
+            setValue(propsState.maxValue)
+            return
+        }
+        if (newValue <= propsState.minValue) {
+            setValue(propsState.minValue)
+            return
+        }
+        setValue(newValue)
+    }
+
     const increment = () => {
-        setValue(value + 1)
+        set(value + 1)
     }
 
     const decrement = () => {
-        setValue(value - 1)
+        set(value - 1)
     }
 
     const add = (add: number) => {
-        setValue(value + add)
+        set(value + add)
     }
 
     const subtract = (sub: number) => {
-        setValue(value - sub)
+        set(value - sub)
     }
 
     return {
