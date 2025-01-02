@@ -7,7 +7,7 @@ import { useEffect, useRef, useCallback, useState } from 'react';
  * @param callback - Function to be executed after the delay
  * @param delay - Delay in milliseconds. Pass null to prevent execution.
  */
-const useTimeout = (callback: () => void, delay: number | null) => {
+export const useTimeout = (callback: () => void, delay: number | null) => {
   const savedCallback = useRef<() => void>(() => {});
   const timeoutId = useRef<NodeJS.Timeout>(undefined);
   const startTime = useRef<number|undefined>(undefined);
@@ -57,5 +57,3 @@ const useTimeout = (callback: () => void, delay: number | null) => {
 
   return { reset, clear, remaining };
 };
-
-export default useTimeout;

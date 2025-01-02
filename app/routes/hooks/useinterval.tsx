@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import useInterval from "~/hooks/useInterval";
+import { useInterval } from "~/hooks/useInterval";
 import { useState } from "react";
 import { Slider } from "~/components/ui/slider";
 

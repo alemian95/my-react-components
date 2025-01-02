@@ -7,7 +7,7 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
-import useTimeout from "~/hooks/useTimeout";
+import { useTimeout } from "~/hooks/useTimeout";
 import { Button } from "~/components/ui/button";
 
 export function meta({ }: Route.MetaArgs) {
