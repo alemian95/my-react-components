@@ -31,10 +31,12 @@ const useLaravelSpaModel = <T>({ url, path }: { url: string, path: string }) => 
     *
     * @returns {Promise<void>} A promise that resolves when the data is fetched successfully.
     */
-    const index = (): Promise<void> => {
+    const index = (params: { [key: string]: string | number }): Promise<void> => {
         setLoading(true)
         setError(null)
-        return laravel.get(path)
+        let appendPath: string[] = []
+        Object.keys(params).forEach(key => appendPath.push(`${key}=${params[key]}`))
+        return laravel.get(path + (appendPath.length ? `?${appendPath.join('&')}` : ""))
         .then((response: AxiosResponse<T[]>) => {
             setData(response.data)
             setLoading(false)
