@@ -190,7 +190,7 @@ const CalendarDay = ({
 
     return (
         <div
-            className={`h-24 xl:h-auto xl:aspect-video flex flex-col gap-1 ${
+            className={`h-24 xl:h-auto xl:aspect-video flex flex-col gap-1 m-1 p-2 rounded ${
                 state.isDayEqual(today.date)
                     ? "bg-sky-200"
                     : state.day === 0
@@ -198,7 +198,7 @@ const CalendarDay = ({
                     : "bg-slate-50"
             } hover:bg-emerald-200`}
         >
-            <div className="text-right p-2">
+            <div className="text-right">
                 <span
                     className={`cursor-pointer ${
                         state.day === 0
@@ -225,9 +225,9 @@ const CalendarEvent = React.forwardRef<HTMLDivElement, CalendarEventProps>(
         <div
             ref={ref}
             {...props}
-            className="cursor-pointer w-full p-1 h-[1.2rem] text-xs overflow-hidden bg-orange-500 text-slate-50"
+            className="cursor-pointer w-full p-1 rounded flex items-end text-xs overflow-hidden bg-orange-400 text-slate-50"
         >
-            {event.title}
+            <span>{event.title}</span>
         </div>
     )
 );
