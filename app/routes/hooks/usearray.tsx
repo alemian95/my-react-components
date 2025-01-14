@@ -7,6 +7,10 @@ import {
     CardHeader,
     CardTitle,
 } from "~/components/ui/card";
+import { useArray } from "~/hooks/useArray";
+import { Button } from "~/components/ui/button";
+import { useState } from "react";
+import { Input } from "~/components/ui/input";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -16,6 +20,11 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function UseArrayPage() {
+
+    const state = useArray<number>()
+
+    const [ value, setValue ] = useState(0)
+    const [ index, setIndex ] = useState(0)
 
     return (
         <WebLayout>
@@ -27,7 +36,25 @@ export default function UseArrayPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    
+                    <div className="max-w-sm mx-auto flex gap-4 items-center mb-6">
+                        <Input type="number" placeholder="Value" value={value} onChange={(e) => setValue(parseInt(e.currentTarget.value))} />
+                        <Input type="number" placeholder="Index" value={index} onChange={(e) => setIndex(parseInt(e.currentTarget.value))} />
+                        <Button onClick={() => state.append(value)}>Add</Button>
+                        <Button onClick={() => state.set(index,value)}>Set</Button>
+                    </div>
+                    <div className="max-w-sm mx-auto font-mono text-slate-600 whitespace-break-spaces">
+                        {
+                            state.array.map((item: number, index: number) => {
+                                return (
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-right">[{index}]</span>
+                                        <span className="text-center"> =&gt; </span>
+                                        <span className="text-left">[{item}]</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </CardContent>
             </Card>
         </WebLayout>
