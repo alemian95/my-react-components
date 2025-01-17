@@ -6,6 +6,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "~/components/components/datatable/Datatable";
 import { useEffect, useState } from "react";
 import { Checkbox } from "~/components/ui/checkbox";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog";
+import { QrCode } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -68,14 +70,14 @@ export default function DatatablePage() {
             accessorKey: "id",
             header: ({ column }) => <SortableColumnHeader column={column} label="ID" />,
             cell: ({ row }) => (
-                <div>{row.original.id}</div>
+                <div className="text-sm">{row.original.id}</div>
             ),
         },
         {
             accessorKey: "title",
             header: ({ column }) => <SortableColumnHeader column={column} label="Title" />,
             cell: ({ row }) => (
-                <div>{row.original.title}</div>
+                <div className="text-sm">{row.original.title}</div>
             ),
         },
         // {
@@ -90,13 +92,24 @@ export default function DatatablePage() {
             header: ({ column }) => <SortableColumnHeader column={column} label="Dimensions" />,
             cell: ({ row }) => {
                 const { width, height, depth } = row.original.dimensions;
-                return <div>{`${width} x ${height} x ${depth}`}</div>;
+                return <div className="text-sm">{`${width} x ${height} x ${depth}`}</div>;
             },
         },
         {
             accessorKey: "meta.qrCode",
             header: ({ column }) => <SortableColumnHeader column={column} label="QR Code" />,
-            cell: ({ row }) => <img src={row.original.meta.qrCode} alt="QR Code" />,
+            cell: ({ row }) => (
+                <Dialog>
+                    <DialogTrigger><QrCode /></DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Scan the qrCode</DialogTitle>
+                        </DialogHeader>
+                        <img src={row.original.meta.qrCode} alt="QR Code" className="mx-auto my-8" />
+                    </DialogContent>
+                </Dialog>
+
+            ),
         },
         {
             accessorKey: "reviews",
@@ -105,9 +118,9 @@ export default function DatatablePage() {
                 const reviews = row.original.reviews;
                 const averageRating =
                     reviews.length > 0
-                        ? <>{(reviews.reduce((sum: any, review: { rating: any; }) => sum + review.rating, 0) / reviews.length).toFixed(1)}/5</>
+                        ? (reviews.reduce((sum: any, review: { rating: any; }) => sum + review.rating, 0) / reviews.length).toFixed(1)
                         : "N/A";
-                return <div>{averageRating}</div>;
+                return <div className="text-sm">{averageRating}/5</div>;
             },
         },
         {
@@ -115,34 +128,34 @@ export default function DatatablePage() {
             header: ({ column }) => <SortableColumnHeader column={column} label="Thumbnail" />,
             cell: ({ row }) => (
                 <div>
-                    <img src={row.original.thumbnail} alt="Thumbnail" />
+                    <img src={row.original.thumbnail} alt="Thumbnail" className="max-w-16" />
                 </div>
             ),
         },
         {
             accessorKey: "category",
             header: ({ column }) => <SortableColumnHeader column={column} label="Category" />,
-            cell: ({ row }) => <div>{row.original.category}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.category}</div>,
         },
         {
             accessorKey: "price",
             header: ({ column }) => <SortableColumnHeader column={column} label="Price" />,
-            cell: ({ row }) => <div>{`$${row.original.price.toFixed(2)}`}</div>,
+            cell: ({ row }) => <div className="text-sm">{`$${row.original.price.toFixed(2)}`}</div>,
         },
         {
             accessorKey: "discountPercentage",
             header: ({ column }) => <SortableColumnHeader column={column} label="Discount %" />,
-            cell: ({ row }) => <div>{`${row.original.discountPercentage}%`}</div>,
+            cell: ({ row }) => <div className="text-sm">{`${row.original.discountPercentage}%`}</div>,
         },
         {
             accessorKey: "rating",
             header: ({ column }) => <SortableColumnHeader column={column} label="Rating" />,
-            cell: ({ row }) => <div>{row.original.rating}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.rating}</div>,
         },
         {
             accessorKey: "stock",
             header: ({ column }) => <SortableColumnHeader column={column} label="Stock" />,
-            cell: ({ row }) => <div>{row.original.stock}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.stock}</div>,
         },
         // {
         //     accessorKey: "tags",
@@ -152,27 +165,27 @@ export default function DatatablePage() {
         {
             accessorKey: "brand",
             header: ({ column }) => <SortableColumnHeader column={column} label="Brand" />,
-            cell: ({ row }) => <div>{row.original.brand}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.brand}</div>,
         },
         {
             accessorKey: "sku",
             header: ({ column }) => <SortableColumnHeader column={column} label="SKU" />,
-            cell: ({ row }) => <div>{row.original.sku}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.sku}</div>,
         },
         {
             accessorKey: "weight",
             header: ({ column }) => <SortableColumnHeader column={column} label="Weight" />,
-            cell: ({ row }) => <div>{`${row.original.weight} kg`}</div>,
+            cell: ({ row }) => <div className="text-sm">{`${row.original.weight} kg`}</div>,
         },
         {
             accessorKey: "warrantyInformation",
             header: ({ column }) => <SortableColumnHeader column={column} label="Warranty" />,
-            cell: ({ row }) => <div>{row.original.warrantyInformation}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.warrantyInformation}</div>,
         },
         {
             accessorKey: "shippingInformation",
             header: ({ column }) => <SortableColumnHeader column={column} label="Shipping Info" />,
-            cell: ({ row }) => <div>{row.original.shippingInformation}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.shippingInformation}</div>,
         },
         // {
         //     accessorKey: "availabilityStatus",
@@ -182,7 +195,7 @@ export default function DatatablePage() {
         {
             accessorKey: "returnPolicy",
             header: ({ column }) => <SortableColumnHeader column={column} label="Return Policy" />,
-            cell: ({ row }) => <div>{row.original.returnPolicy}</div>,
+            cell: ({ row }) => <div className="text-sm">{row.original.returnPolicy}</div>,
         },
     ]
     
