@@ -19,12 +19,12 @@ export function meta({}: Route.MetaArgs) {
 
 export default function DatatablePage() {
 
-    const [ rows, setRows ] = useState([])
+    const [ rows, setRows ] = useState<Product[]>([])
     const [ loading, setLoading ] = useState(true)
     const [ error, setError ] = useState<string|null>(null)
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/photos")
+        fetch("https://dummyjson.com/products")
         .then(response => {
             if (! response.ok) {
                 return response.text().then(text => { throw new Error(text) })
@@ -33,7 +33,7 @@ export default function DatatablePage() {
         })
         .then(json => {
             setError(null)
-            setRows(json)
+            setRows(json.products)
         })
         .catch((err: TypeError) => {
             setError(err.message)
@@ -72,32 +72,117 @@ export default function DatatablePage() {
             ),
         },
         {
-            accessorKey: "albumId",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Album" />,
-            cell: ({ row }) => (
-                <div>{row.original.albumId}</div>
-            ),
-        },
-        {
             accessorKey: "title",
             header: ({ column }) => <SortableColumnHeader column={column} label="Title" />,
             cell: ({ row }) => (
                 <div>{row.original.title}</div>
             ),
         },
+        // {
+        //     accessorKey: "description",
+        //     header: ({ column }) => <SortableColumnHeader column={column} label="Description" />,
+        //     cell: ({ row }) => (
+        //         <div>{row.original.description}</div>
+        //     ),
+        // },
         {
-            accessorKey: "thumbnailUrl",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Anteprima" />,
+            accessorKey: "dimensions",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Dimensions" />,
+            cell: ({ row }) => {
+                const { width, height, depth } = row.original.dimensions;
+                return <div>{`${width} x ${height} x ${depth}`}</div>;
+            },
+        },
+        {
+            accessorKey: "meta.qrCode",
+            header: ({ column }) => <SortableColumnHeader column={column} label="QR Code" />,
+            cell: ({ row }) => <img src={row.original.meta.qrCode} alt="QR Code" />,
+        },
+        {
+            accessorKey: "reviews",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Average Rating" />,
+            cell: ({ row }) => {
+                const reviews = row.original.reviews;
+                const averageRating =
+                    reviews.length > 0
+                        ? <>{(reviews.reduce((sum: any, review: { rating: any; }) => sum + review.rating, 0) / reviews.length).toFixed(1)}/5</>
+                        : "N/A";
+                return <div>{averageRating}</div>;
+            },
+        },
+        {
+            accessorKey: "thumbnail",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Thumbnail" />,
             cell: ({ row }) => (
-                <div><img src={row.original.thumbnailUrl} alt="anteprima"/></div>
+                <div>
+                    <img src={row.original.thumbnail} alt="Thumbnail" />
+                </div>
             ),
         },
         {
-            accessorKey: "url",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Immagine" />,
-            cell: ({ row }) => (
-                <div><a target="_blank" href={row.original.url}>Apri immagine</a></div>
-            ),
+            accessorKey: "category",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Category" />,
+            cell: ({ row }) => <div>{row.original.category}</div>,
+        },
+        {
+            accessorKey: "price",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Price" />,
+            cell: ({ row }) => <div>{`$${row.original.price.toFixed(2)}`}</div>,
+        },
+        {
+            accessorKey: "discountPercentage",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Discount %" />,
+            cell: ({ row }) => <div>{`${row.original.discountPercentage}%`}</div>,
+        },
+        {
+            accessorKey: "rating",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Rating" />,
+            cell: ({ row }) => <div>{row.original.rating}</div>,
+        },
+        {
+            accessorKey: "stock",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Stock" />,
+            cell: ({ row }) => <div>{row.original.stock}</div>,
+        },
+        // {
+        //     accessorKey: "tags",
+        //     header: ({ column }) => <SortableColumnHeader column={column} label="Tags" />,
+        //     cell: ({ row }) => <div>{row.original.tags.join(", ")}</div>,
+        // },
+        {
+            accessorKey: "brand",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Brand" />,
+            cell: ({ row }) => <div>{row.original.brand}</div>,
+        },
+        {
+            accessorKey: "sku",
+            header: ({ column }) => <SortableColumnHeader column={column} label="SKU" />,
+            cell: ({ row }) => <div>{row.original.sku}</div>,
+        },
+        {
+            accessorKey: "weight",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Weight" />,
+            cell: ({ row }) => <div>{`${row.original.weight} kg`}</div>,
+        },
+        {
+            accessorKey: "warrantyInformation",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Warranty" />,
+            cell: ({ row }) => <div>{row.original.warrantyInformation}</div>,
+        },
+        {
+            accessorKey: "shippingInformation",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Shipping Info" />,
+            cell: ({ row }) => <div>{row.original.shippingInformation}</div>,
+        },
+        // {
+        //     accessorKey: "availabilityStatus",
+        //     header: ({ column }) => <SortableColumnHeader column={column} label="Availability" />,
+        //     cell: ({ row }) => <div>{row.original.availabilityStatus}</div>,
+        // },
+        {
+            accessorKey: "returnPolicy",
+            header: ({ column }) => <SortableColumnHeader column={column} label="Return Policy" />,
+            cell: ({ row }) => <div>{row.original.returnPolicy}</div>,
         },
     ]
     
@@ -127,4 +212,50 @@ export default function DatatablePage() {
             </Card>
         </WebLayout>
     );
+}
+
+interface Product {
+    id: number
+    title: string
+    description: string
+    category: string
+    price: number
+    discountPercentage: number
+    rating: number
+    stock: number
+    tags: string[]
+    brand: string
+    sku: string
+    weight: number
+    dimensions: Dimensions
+    warrantyInformation: string
+    shippingInformation: string
+    availabilityStatus: string
+    reviews: Review[]
+    returnPolicy: string
+    minimumOrderQuantity: number
+    meta: Meta
+    images: string[]
+    thumbnail: string
+}
+
+interface Dimensions {
+    width: number
+    height: number
+    depth: number
+}
+
+interface Review {
+    rating: number
+    comment: string
+    date: string
+    reviewerName: string
+    reviewerEmail: string
+}
+
+interface Meta {
+    createdAt: string
+    updatedAt: string
+    barcode: string
+    qrCode: string
 }
