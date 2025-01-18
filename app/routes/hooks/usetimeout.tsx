@@ -9,6 +9,8 @@ import {
 } from "~/components/ui/card";
 import { useTimeout } from "~/hooks/useTimeout";
 import { Button } from "~/components/ui/button";
+import { Link } from "react-router";
+import { GitHubIcon } from "~/components/icons/github";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -29,7 +31,7 @@ export default function UseTimeoutPage() {
         <WebLayout>
             <Card>
                 <CardHeader>
-                    <CardTitle>useTimeout Hook</CardTitle>
+                    <CardTitle className="flex justify-between items-center"><span>useTimeout Hook</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/hooks/useTimeout.ts"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
                     <CardDescription>
                         Hook that executes a callback after a specified delay
                     </CardDescription>

@@ -11,6 +11,8 @@ import { useArray } from "~/hooks/useArray";
 import { Button } from "~/components/ui/button";
 import { useState } from "react";
 import { Input } from "~/components/ui/input";
+import { Link } from "react-router";
+import { GitHubIcon } from "~/components/icons/github";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -30,7 +32,7 @@ export default function UseArrayPage() {
         <WebLayout>
             <Card>
                 <CardHeader>
-                    <CardTitle>useArray Hook</CardTitle>
+                    <CardTitle className="flex justify-between items-center"><span>useArray Hook</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/hooks/useArray.ts"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
                     <CardDescription>
                         Hook that initializes and manages arrays
                     </CardDescription>

@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog";
 import { QrCode } from "lucide-react";
+import { Link } from "react-router";
+import { GitHubIcon } from "~/components/icons/github";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -204,7 +206,7 @@ export default function DatatablePage() {
         <WebLayout>
             <Card className="border-none shadow-lg">
                 <CardHeader>
-                    <CardTitle>Datatable</CardTitle>
+                    <CardTitle className="flex justify-between items-center"><span>Datatable</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/components/components/datatable/Datatable.tsx"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
                     <CardDescription>
                         React Datatable
                     </CardDescription>

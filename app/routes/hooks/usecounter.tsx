@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/com
 import { useBoolean } from "~/hooks/useBoolean";
 import { Button } from "~/components/ui/button";
 import { useCounter } from "~/hooks/useCounter";
+import { Link } from "react-router";
+import { GitHubIcon } from "~/components/icons/github";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -25,7 +27,7 @@ export default function UseCounterHook() {
   return <WebLayout>
     <Card>
       <CardHeader>
-        <CardTitle>useCounter Hook</CardTitle>
+        <CardTitle className="flex justify-between items-center"><span>useCounter Hook</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/hooks/useCounter.ts"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
         <CardDescription>Hook to easily manage counter state</CardDescription>
       </CardHeader>
       <CardContent>

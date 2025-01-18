@@ -19,6 +19,8 @@ import { Button } from "~/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { GitHubIcon } from "~/components/icons/github";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -74,7 +76,7 @@ export default function CalendarPage() {
         <WebLayout>
             <Card className="border-none shadow-lg">
                 <CardHeader>
-                    <CardTitle>Event Calendar</CardTitle>
+                    <CardTitle className="flex justify-between items-center"><span>Event Calendar</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/components/components/calendar/calendar.tsx"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
                     <CardDescription>
                         Interactive calendar with advanced functionalities for
                         events

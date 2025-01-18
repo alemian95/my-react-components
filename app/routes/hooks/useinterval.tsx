@@ -10,6 +10,8 @@ import {
 import { useInterval } from "~/hooks/useInterval";
 import { useState } from "react";
 import { Slider } from "~/components/ui/slider";
+import { Link } from "react-router";
+import { GitHubIcon } from "~/components/icons/github";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -31,7 +33,7 @@ export default function UseIntervalHook() {
         <WebLayout>
             <Card>
                 <CardHeader>
-                    <CardTitle>useInterval Hook</CardTitle>
+                    <CardTitle className="flex justify-between items-center"><span>useInterval Hook</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/hooks/useInterval.ts"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
                     <CardDescription>
                         Hook that repeatedly calls a callback function at a specified interval
                     </CardDescription>

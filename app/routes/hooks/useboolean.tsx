@@ -3,6 +3,8 @@ import type { Route } from "../+types/home";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 import { useBoolean } from "~/hooks/useBoolean";
 import { Button } from "~/components/ui/button";
+import { Link } from "react-router";
+import { GitHubIcon } from "~/components/icons/github";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,7 +20,7 @@ export default function UseBooleanHook() {
   return <WebLayout>
     <Card>
       <CardHeader>
-        <CardTitle>useBoolean Hook</CardTitle>
+        <CardTitle className="flex justify-between items-center"><span>useBoolean Hook</span><Link to={"https://github.com/alemian95/my-react-components/blob/master/app/hooks/useBoolean.ts"} target="_blank"><GitHubIcon className="w-6" /></Link></CardTitle>
         <CardDescription>Hook to easily manage boolean state</CardDescription>
       </CardHeader>
       <CardContent>
@@ -37,7 +39,7 @@ export default function UseBooleanHook() {
           <Button onClick={() => state.setFalse()}>Set False</Button>
         </div>
 
-        <div className="relative text-xs my-6 p-4 font-mono whitespace-break-spaces text-slate-200 bg-slate-800">
+        {/* <div className="relative text-xs my-6 p-4 font-mono whitespace-break-spaces text-slate-200 bg-slate-800">
           {`import { useState } from "react"
 
 export const useBoolean = (initialValue: boolean) => {
@@ -64,7 +66,7 @@ export const useBoolean = (initialValue: boolean) => {
     setValue
   }
 }`}
-        </div>
+        </div> */}
 
       </CardContent>
     </Card>
