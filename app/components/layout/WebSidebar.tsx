@@ -1,4 +1,4 @@
-import { Calculator, Calendar1, Clock, LayoutDashboard, List, Power, Table, Timer } from "lucide-react"
+import { BinaryIcon, CalendarDaysIcon, DiffIcon, HourglassIcon, LayoutDashboardIcon, Rows4Icon, Table2Icon, TimerIcon } from "lucide-react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { Link } from "react-router"
 
@@ -11,7 +11,7 @@ export const WebSidebar = () => {
                         <SidebarMenuButton size="lg" asChild>
                             <Link to="/">
                                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
-                                    <LayoutDashboard className="w-8 h-8" />
+                                    <LayoutDashboardIcon className="w-8 h-8" />
                                 </div>
                                 <div className="flex flex-col gap-0.5 leading-none">
                                     <h1 className="font-semibold">Reusable React Components</h1>
@@ -29,7 +29,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/components/calendar">
-                                        <Calendar1 />
+                                        <CalendarDaysIcon />
                                         <span>Calendar</span>
                                     </Link>
                                 </SidebarMenuButton>
@@ -37,7 +37,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/components/datatable">
-                                        <Table />
+                                        <Table2Icon />
                                         <span>Datatable</span>
                                     </Link>
                                 </SidebarMenuButton>
@@ -52,7 +52,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/useboolean">
-                                        <Power />
+                                        <BinaryIcon />
                                         <span>useBoolean</span>
                                     </Link>
                                 </SidebarMenuButton>
@@ -60,7 +60,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/useinterval">
-                                        <Clock />
+                                        <TimerIcon />
                                         <span>useInterval</span>
                                     </Link>
                                 </SidebarMenuButton>
@@ -68,7 +68,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/usetimeout">
-                                        <Timer />
+                                        <HourglassIcon />
                                         <span>useTimeout</span>
                                     </Link>
                                 </SidebarMenuButton>
@@ -76,7 +76,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/usecounter">
-                                        <Calculator />
+                                        <DiffIcon />
                                         <span>useCounter</span>
                                     </Link>
                                 </SidebarMenuButton>
@@ -84,7 +84,7 @@ export const WebSidebar = () => {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild isActive={false}>
                                     <Link to="/hooks/usearray">
-                                        <List />
+                                        <Rows4Icon />
                                         <span>useArray</span>
                                     </Link>
                                 </SidebarMenuButton>
