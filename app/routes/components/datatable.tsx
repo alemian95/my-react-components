@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { QrCode } from "lucide-react";
 import { Link } from "react-router";
 import { GitHubIcon } from "~/components/icons/github";
+import { ColumnHeader } from "~/components/components/datatable/headers/ColumnHeader";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -91,7 +92,7 @@ export default function DatatablePage() {
         // },
         {
             accessorKey: "dimensions",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Dimensions" />,
+            header: ({ column }) => <ColumnHeader column={column} label="Dimensions" />,
             cell: ({ row }) => {
                 const { width, height, depth } = row.original.dimensions;
                 return <div className="text-sm">{`${width} x ${height} x ${depth}`}</div>;
@@ -99,7 +100,7 @@ export default function DatatablePage() {
         },
         {
             accessorKey: "meta.qrCode",
-            header: ({ column }) => <SortableColumnHeader column={column} label="QR Code" />,
+            header: ({ column }) => <ColumnHeader column={column} label="QR Code" />,
             cell: ({ row }) => (
                 <Dialog>
                     <DialogTrigger><QrCode /></DialogTrigger>
@@ -124,10 +125,19 @@ export default function DatatablePage() {
                         : "N/A";
                 return <div className="text-sm">{averageRating}/5</div>;
             },
+            sortingFn: ((a, b) => {
+                /**
+                 * Not the best way to calculate the average review but this is the data I have
+                 * Review should have average calculated by the backend
+                 */
+                const ar = (a.original.reviews.reduce((sum: any, review: { rating: any; }) => sum + review.rating, 0) / a.original.reviews.length)
+                const br = (b.original.reviews.reduce((sum: any, review: { rating: any; }) => sum + review.rating, 0) / b.original.reviews.length)
+                return ar - br
+            })
         },
         {
             accessorKey: "thumbnail",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Thumbnail" />,
+            header: ({ column }) => <ColumnHeader column={column} label="Thumbnail" />,
             cell: ({ row }) => (
                 <div>
                     <img src={row.original.thumbnail} alt="Thumbnail" className="max-w-16" />
@@ -181,12 +191,12 @@ export default function DatatablePage() {
         },
         {
             accessorKey: "warrantyInformation",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Warranty" />,
+            header: ({ column }) => <ColumnHeader column={column} label="Warranty" />,
             cell: ({ row }) => <div className="text-sm">{row.original.warrantyInformation}</div>,
         },
         {
             accessorKey: "shippingInformation",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Shipping Info" />,
+            header: ({ column }) => <ColumnHeader column={column} label="Shipping Info" />,
             cell: ({ row }) => <div className="text-sm">{row.original.shippingInformation}</div>,
         },
         // {
@@ -196,7 +206,7 @@ export default function DatatablePage() {
         // },
         {
             accessorKey: "returnPolicy",
-            header: ({ column }) => <SortableColumnHeader column={column} label="Return Policy" />,
+            header: ({ column }) => <ColumnHeader column={column} label="Return Policy" />,
             cell: ({ row }) => <div className="text-sm">{row.original.returnPolicy}</div>,
         },
     ]
