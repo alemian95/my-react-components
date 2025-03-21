@@ -227,7 +227,7 @@ export default function DatatablePage() {
                         columns={columns}
                         enableColumnsSelection={true}
                         enableRowsSelection={true}
-                        enableTextFilter="title"
+                        enableFilter={true}
                         isLoading={loading}
                         error={error}
                         pageSize={10}

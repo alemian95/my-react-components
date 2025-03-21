@@ -16,7 +16,7 @@ export type DataTableProps<T> = {
     columns: ColumnDef<T>[]
     enableColumnsSelection?: boolean
     enableRowsSelection?: boolean
-    enableTextFilter?: string
+    enableFilter?: boolean
     isLoading: boolean
     error: string | null
     enablePagination?: boolean
@@ -25,12 +25,9 @@ export type DataTableProps<T> = {
 
 export function DataTable<T>(props: DataTableProps<T>) {
     const [sorting, setSorting] = React.useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-        []
-    )
-    const [columnVisibility, setColumnVisibility] =
-        React.useState<VisibilityState>({})
+    const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
+    const [globalFilter, setGlobalFilter] = React.useState<any>([]);
 
     const data = props.data
     const columns = props.columns
@@ -40,18 +37,19 @@ export function DataTable<T>(props: DataTableProps<T>) {
         data,
         columns,
         onSortingChange: setSorting,
-        onColumnFiltersChange: setColumnFilters,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
+        onGlobalFilterChange: setGlobalFilter,
+        globalFilterFn: 'auto',
         state: {
             sorting,
-            columnFilters,
             columnVisibility,
             rowSelection,
+            globalFilter,
             pagination: {
                 pageIndex: currentPage,
                 pageSize: props.enablePagination && props.pageSize ? props.pageSize : Number.MAX_SAFE_INTEGER
@@ -63,14 +61,12 @@ export function DataTable<T>(props: DataTableProps<T>) {
         <div className="w-full">
             <div className="flex items-center py-4">
                 {
-                    props.enableTextFilter
+                    props.enableFilter
                     &&
                     <Input
-                        placeholder={`Filter ${props.enableTextFilter}...`}
-                        value={(table.getColumn(props.enableTextFilter!)?.getFilterValue() as string) ?? ""}
-                        onChange={(event) =>
-                            table.getColumn(props.enableTextFilter!)?.setFilterValue(event.target.value)
-                        }
+                        placeholder={`Filter`}
+                        value={globalFilter ?? ''}
+                        onChange={(e) => table.setGlobalFilter(String(e.target.value))}
                         className="max-w-sm"
                     />
                 }
